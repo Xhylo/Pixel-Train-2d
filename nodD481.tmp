@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://cyqc3k52d0qxk"]
+
+[ext_resource type="Script" path="res://Movement.gd" id="1_kge2a"]
+[ext_resource type="Script" path="res://CollisionShape2D.gd" id="2_55kbq"]
+[ext_resource type="Script" path="res://EnemySpawnScript.gd" id="3_8gy5r"]
+[ext_resource type="PackedScene" uid="uid://rp32vxnyg20r" path="res://enemy.tscn" id="4_gcaky"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nvph"]
+
+[sub_resource type="Gradient" id="Gradient_v4ep0"]
+colors = PackedColorArray(0.258065, 0.258065, 0.258065, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l11dj"]
+gradient = SubResource("Gradient_v4ep0")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_0rl24"]
+diffuse_texture = SubResource("GradientTexture1D_l11dj")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_flvm1"]
+size = Vector2(507.086, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsdi4"]
+size = Vector2(30.3359, 30.5)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(543, 574)
+script = ExtResource("1_kge2a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_4nvph")
+script = ExtResource("2_55kbq")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(0, -4)
+scale = Vector2(0.0820313, 20)
+texture = SubResource("CanvasTexture_0rl24")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(555, 634)
+scale = Vector2(3.32604, 2.47497)
+
+[node name="GameFloor" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(10.2188, 0)
+shape = SubResource("RectangleShape2D_flvm1")
+
+[node name="OutofBonds1" type="StaticBody2D" parent="."]
+position = Vector2(-29, 381)
+scale = Vector2(0.126037, 27.8242)
+
+[node name="OutofBondsLine1" type="CollisionShape2D" parent="OutofBonds1"]
+position = Vector2(39.671, -0.179699)
+shape = SubResource("RectangleShape2D_flvm1")
+
+[node name="OutofBonds2" type="StaticBody2D" parent="."]
+position = Vector2(1203, 381)
+scale = Vector2(0.126037, 27.8242)
+
+[node name="OutofBondsLine2" type="CollisionShape2D" parent="OutofBonds2"]
+position = Vector2(-151.1, -0.323457)
+shape = SubResource("RectangleShape2D_flvm1")
+
+[node name="EnemySpawn" type="StaticBody2D" parent="."]
+
+[node name="EnemyLocationSpawnCol" type="CollisionShape2D" parent="EnemySpawn"]
+position = Vector2(573, -44.25)
+scale = Vector2(36.92, 1)
+shape = SubResource("RectangleShape2D_qsdi4")
+script = ExtResource("3_8gy5r")
+
+[node name="Enemy" parent="." instance=ExtResource("4_gcaky")]
